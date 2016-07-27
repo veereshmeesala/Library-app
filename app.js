@@ -1,13 +1,23 @@
 var express = require('express'),
+	bodyParser = require('body-parser'),
 	mongoose = require('mongoose'),
 	app = express(),
 	port = process.env.PORT || 3000,
 	bookRouter = express.Router();
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());	
+
 var db = mongoose.connect('mongodb://localhost/bookAPI');
 var Book = require('./models/bookModel');
 
 bookRouter.route('/books')
+		  .post(function(req, res){
+		  	var book = new Book(req.body);
+		  	// console.log(book);
+		  	book.save();
+		  	res.status(201).send(book);
+		  })
 		  .get(function(req, res){
 		  		var query = {};
 		  		if(req.query.genre){
