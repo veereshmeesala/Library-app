@@ -11,10 +11,10 @@ app.use(bodyParser.json());
 var db = mongoose.connect('mongodb://localhost/bookAPI');
 var Book = require('./models/bookModel');
 
-bookRouter = require('./Routes/bookRoutes')();
+bookRouter = require('./Routes/bookRoutes')(Book);
 
 
-app.use('/api', bookRouter);
+app.use('/api/books', bookRouter);
 
 app.get('/', function(req, res){
 	res.send('Welcome to my API');

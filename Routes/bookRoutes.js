@@ -1,10 +1,10 @@
 var express = require('express');
-var Book = require('../models/bookModel');
+// var Book = require('../models/bookModel');
 
-var routes = function(){
+var routes = function(Book){
 	var	bookRouter = express.Router();
 
-	bookRouter.route('/books')
+	bookRouter.route('/')
 			  .post(function(req, res){
 			  	var book = new Book(req.body);
 			  	// console.log(book);
@@ -25,7 +25,7 @@ var routes = function(){
 			  		})
 				});
 
-	bookRouter.route('/books/:bookId')
+	bookRouter.route('/:bookId')
 				.get(function(req, res){
 					Book.findById(req.params.bookId, function(err, book){
 						if(err)
@@ -33,6 +33,21 @@ var routes = function(){
 						else
 							res.json(book);
 					});
+				})
+				.put(function(req, res){
+						Book.findById(req.params.bookId, function(err, book){
+							if(err){
+								res.status(500).send(err);
+							}
+							else{
+								book.title = req.body.title
+								book.author = req.body.author;
+								book.genre = req.body.genre;
+								book.read = req.body.read;
+								book.save();
+								res.json(book);
+							}
+						});
 				});
 
 	return bookRouter
