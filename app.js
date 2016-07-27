@@ -9,9 +9,12 @@ var Book = require('./models/bookModel');
 
 bookRouter.route('/books')
 		  .get(function(req, res){
-		  		// var responseJson = {hello: "this is my api"};
-		  		// res.json(responseJson);
-		  		Book.find(function(err, books){
+		  		var query = {};
+		  		if(req.query.genre){
+		  			query.genre = req.query.genre;
+		  		}
+		  		// var query = req.query;
+		  		Book.find(query, function(err, books){
 		  			if(err)
 		  				res.status(500).send(err);
 		  			else
