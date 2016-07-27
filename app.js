@@ -4,19 +4,19 @@ var express = require('express'),
 	port = process.env.PORT || 3000,
 	bookRouter = express.Router();
 
-// var db = mongoose.connect('mongodb://localhost/bookAPI');
-// var Book = require('./models/bookModel');
+var db = mongoose.connect('mongodb://localhost/bookAPI');
+var Book = require('./models/bookModel');
 
 bookRouter.route('/books')
 		  .get(function(req, res){
-		  		var responseJson = {hello: "this is my api"};
-		  		res.json(responseJson);
-		  		// Book.find(function(err, books){
-		  		// 	if(err)
-		  		// 		console.log('error ' + err);
-		  		// 	else
-		  		// 		res.json(books);
-		  		// })
+		  		// var responseJson = {hello: "this is my api"};
+		  		// res.json(responseJson);
+		  		Book.find(function(err, books){
+		  			if(err)
+		  				res.status(500).send(err);
+		  			else
+		  				res.json(books);
+		  		})
 			});
 
 app.use('/api', bookRouter);
