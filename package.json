@@ -4,8 +4,8 @@
   "description": "application using node.js express mongoDB",
   "main": "index.js",
   "scripts": {
-    "gulpdev": "gulp",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "gulp",
+    "test": "gulp test"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +16,10 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "gulp": "^3.9.1",
+    "gulp-mocha": "^2.2.0",
     "gulp-nodemon": "^2.1.0",
-    "mongoose": "^4.5.7"
+    "mongoose": "^4.5.7",
+    "should": "^10.0.0",
+    "sinon": "^1.17.5"
   }
 }
